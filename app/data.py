@@ -9,11 +9,15 @@ CSV_PATH = r'C:\\Users\\Ev\\Desktop\\Spending_Patterns\\spending_patterns_detail
 
 @app.route('/')
 def display_dataframe():
-
+    # Read the CSV
     df = pd.read_csv(CSV_PATH)
-
-    html_table = df.to_html(classes='table table-striped', index=False)
-
+    
+    # Filter the DataFrame to keep only the specified columns
+    filtered_df = df[['Category', 'Quantity', 'Total Spent']]
+    
+    # Convert the filtered DataFrame to HTML
+    html_table = filtered_df.to_html(classes='table table-striped', index=False)
+    
     return render_template('index.html', table=html_table)
 
 if __name__ == '__main__':
