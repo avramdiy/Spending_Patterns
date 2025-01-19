@@ -9,16 +9,25 @@ CSV_PATH = r'C:\\Users\\Ev\\Desktop\\Spending_Patterns\\spending_patterns_detail
 
 @app.route('/')
 def display_dataframe():
+    df = pd.read_csv(CSV_PATH)
+
+    html_table = df.to_html(classes='table table-striped', index=False)
+
+    return render_template('index.html', table=html_table)
+
+@app.route('/average-spent')
+def average_spent_per_category():
     # Read the CSV
     df = pd.read_csv(CSV_PATH)
     
-    # Filter the DataFrame to keep only the specified columns
-    filtered_df = df[['Category', 'Quantity', 'Total Spent']]
+    # Calculate the average total spent per category
+    average_spent = df.groupby('Category')['Total Spent'].mean().reset_index()
+    average_spent.rename(columns={'Total Spent': 'Average Total Spent'}, inplace=True)
     
-    # Convert the filtered DataFrame to HTML
-    html_table = filtered_df.to_html(classes='table table-striped', index=False)
+    # Convert the result to an HTML table
+    html_table = average_spent.to_html(classes='table table-striped', index=False)
     
-    return render_template('index.html', table=html_table)
+    return render_template('average_spent.html', table=html_table)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -18,6 +18,8 @@
 
 - What is the Average Total Spent spent per Category?
 
+- Completed 1.18.25
+
 ## 4th Commit
 
 - What is the Average Quantity per Category?
