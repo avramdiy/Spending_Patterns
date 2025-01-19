@@ -29,5 +29,19 @@ def average_spent_per_category():
     
     return render_template('average_spent.html', table=html_table)
 
+@app.route('/average-quantity')
+def average_quantity_per_category():
+    # Read the CSV
+    df = pd.read_csv(CSV_PATH)
+    
+    # Calculate the average quantity per category
+    average_quantity = df.groupby('Category')['Quantity'].mean().reset_index()
+    average_quantity.rename(columns={'Quantity': 'Average Quantity'}, inplace=True)
+    
+    # Convert the result to an HTML table
+    html_table = average_quantity.to_html(classes='table table-striped', index=False)
+    
+    return render_template('average_quantity.html', table=html_table)
+
 if __name__ == '__main__':
     app.run(debug=True)

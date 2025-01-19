@@ -24,6 +24,8 @@
 
 - What is the Average Quantity per Category?
 
+- Completed 1.18.25
+
 ## 5th Commit
 
 - Train a model to show what a user would spend per category given a certain monthly budget.
